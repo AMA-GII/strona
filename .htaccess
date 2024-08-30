@@ -1,10 +1,5 @@
-SetEnv PHP_VER 5_3
-SetEnv REGISTER_GLOBALS 0
-
-RewriteCond %{HTTPS} off
-RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
-
-RewriteCond %{HTTPS} on
-RewriteCond %{HTTP_HOST} !^www\.(.*)$ [NC]
-RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/$1 [R=301,L]
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,NE,R=301]
